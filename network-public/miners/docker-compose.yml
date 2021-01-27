@@ -1,7 +1,4 @@
-version: '3.5'
-networks:
-  ethereum-private:
-    name: ethereum_private
+version: '2.3'
     
 
 services:  
@@ -15,9 +12,7 @@ services:
         - PASSWORD_ACCOUNT=test123
         - NETWORK_ID=2745
       volumes:
-        - ./genesis.json:/home/dev/genesis.json
-        - ./bootnode:/home/bootnode
+        - ../genesis.json:/home/dev/genesis.json
+        - ../bootnode:/home/bootnode
         - ./scripts/init.sh:/init.sh
-      networks:
-        - ethereum-private
         
