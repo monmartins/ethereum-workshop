@@ -1,23 +1,30 @@
 version: '2.3'
 networks:
-  ethereum-private:
-    name: ethereum_private
+  ethereum-public:
+    name: ethereum_public
     
 
 services:  
-    ethereum-node:
-      image: golang-1-14-4:alpine
-      tty: true
-      stdin_open: true
-      working_dir: /
-      command: ./init.sh
-      environment:
-        - PASSWORD_ACCOUNT=test123
-        - NETWORK_ID=2745
-      volumes:
-        - ./genesis.json:/home/dev/genesis.json
-        - ./bootnode:/home/bootnode
-        - ./scripts/init.sh:/init.sh
+    # ethereum-node-light:
+    ethereum-node-full:
+      extends:
+        file: fulls/docker-compose.yml
+        service: ethereum-node
       networks:
-        - ethereum-private
+        - ethereum-public
+    # ethereum-node-miner:
+    #   image: golang-1-14-4:alpine
+    #   tty: true
+    #   stdin_open: true
+    #   working_dir: /
+    #   command: ./init.sh
+    #   environment:
+    #     - PASSWORD_ACCOUNT=test123
+    #     - NETWORK_ID=2745
+    #   volumes:
+    #     - ./genesis.json:/home/dev/genesis.json
+    #     - ./bootnode:/home/bootnode
+    #     - ./scripts/init.sh:/init.sh
+    #   networks:
+    #     - ethereum-public
         

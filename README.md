@@ -5,11 +5,9 @@
 ```
 	cd docker/ethereum-go/
 	docker build . -t golang-1-14-4:alpine
-
 ```
 
 ## Using docker-compose.yml in node-miner
-
 ```
 	cd /node-miner/scripts
 	chmod 777 ./init.sh
