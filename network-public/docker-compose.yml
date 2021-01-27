@@ -1,0 +1,23 @@
+version: '2.3'
+networks:
+  ethereum-private:
+    name: ethereum_private
+    
+
+services:  
+    ethereum-node:
+      image: golang-1-14-4:alpine
+      tty: true
+      stdin_open: true
+      working_dir: /
+      command: ./init.sh
+      environment:
+        - PASSWORD_ACCOUNT=test123
+        - NETWORK_ID=2745
+      volumes:
+        - ./genesis.json:/home/dev/genesis.json
+        - ./bootnode:/home/bootnode
+        - ./scripts/init.sh:/init.sh
+      networks:
+        - ethereum-private
+        
