@@ -1,5 +1,24 @@
 # ethereum-workshop
 
+
+## Build Image
+```
+	cd docker/ethereum-go/
+	docker build . -t golang-1-14-4:alpine
+
+```
+
+## Using docker-compose.yml in node-miner
+
+```
+	cd /node-miner/scripts
+	chmod 777 ./init.sh
+	cd ..
+	docker-compose scale ethereum-node=3
+```
+
+
+
 ### https://geth.ethereum.org/docs/install-and-build/installing-geth#run-inside-docker-container
 
 ### https://geth.ethereum.org/docs/interface/javascript-console
