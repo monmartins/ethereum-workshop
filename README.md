@@ -27,6 +27,12 @@
 
 ### https://eth.wiki/json-rpc/API
 
+### https://ethereum-tests.readthedocs.io/_/downloads/en/develop/pdf/
+
+### https://geth.ethereum.org/docs/interface/private-network
+
+### https://godoc.org/github.com/ethereum/go-ethereum/tests
+
 
 
 ```
