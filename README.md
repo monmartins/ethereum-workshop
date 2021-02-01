@@ -1,5 +1,6 @@
 # ethereum-workshop
 
+**IMPORTANT NOTE FOR WINDOWS USERS:** You have to ensure that the scripts have Unix line endings or Docker won't be able to run them in the image. If you have modified the files on Windows, you can manually open the *.sh files with Sublime Text, go to the option VIEW->Line Endings-> UNIX and save the file. More informations in the [link](https://stackoverflow.com/questions/37419042/container-command-start-sh-not-found-or-does-not-exist-entrypoint-to-contain).
 
 ## Build Image
 ```
@@ -12,10 +13,23 @@
 	cd /node-miner/scripts
 	chmod 777 ./init.sh
 	cd ..
-	docker-compose scale ethereum-node=3
+	docker-compose up --scale ethereum-node=3
 ```
 
+## Using docker-compose.yml in network-public
+```
+	cd /network-public
+	chmod 777 ./fulls/scripts/init.sh
+	chmod 777 ./lights/scripts/init.sh
+	chmod 777 ./miners/scripts/init.sh
+	cd ..
+	docker-compose up --d
+```
 
+# Connect to a running container
+```
+	docker exec -it <container name> /bin/sh
+```
 
 ### https://geth.ethereum.org/docs/install-and-build/installing-geth#run-inside-docker-container
 
