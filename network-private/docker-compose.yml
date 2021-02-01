@@ -1,0 +1,27 @@
+version: '2.3'
+
+networks:
+  ethereum-public:
+    name: ethereum_public
+    
+
+services:  
+  ethereum-node-light:
+    extends:
+      file: lights/docker-compose.yml
+      service: ethereum-node
+    networks:
+      - ethereum-public
+  ethereum-node-full:
+    extends:
+      file: fulls/docker-compose.yml
+      service: ethereum-node
+    networks:
+      - ethereum-public
+  ethereum-node-miner:
+    extends:
+      file: miners/docker-compose.yml
+      service: ethereum-node
+    networks:
+      - ethereum-public
+        
