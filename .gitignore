@@ -15,4 +15,4 @@
 # vendor/
 
 #Files of project
-enode
+**/enode/
