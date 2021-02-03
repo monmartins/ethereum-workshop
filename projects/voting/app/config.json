@@ -1,0 +1,9 @@
+{
+    "port": 8000,
+    "secret": "dae8405096dd3ef1b2580a1e382db3cf5a9d08c2b763a822531cca9943d60727",
+    "password":"01e3851d3b4c8ee05e2a7615aee40eb6903e2c0d88057376b0aef580f23f8f67",
+    "contract_folder" :"../../contracts",
+    "key_file":"../../ethereum-config/scripts/private_key.json",
+    "address_file":"../../ethereum-config/scripts/address",
+    "host":"ethereum-dev:8546"
+}
