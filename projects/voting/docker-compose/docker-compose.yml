@@ -1,0 +1,57 @@
+version: '3.5'
+
+volumes:
+    exclude:
+
+services:
+  
+  nodejs:
+    container_name: nodejs
+    image: nodejs-14:alpine-310
+    tty: true
+    stdin_open: true
+    working_dir: /home/dev
+    # command: node server.js
+    volumes:
+      - ../app:/home/dev
+      - ../ethereum-config:/home/dev/ethereum-config
+      - exclude:/home/dev/node_modules
+    ports:
+      - 8000:8000
+    networks:
+      - ethereum_private
+        
+
+  ethereum:
+    container_name: ethereum-dev
+    image: ethereum-go-1-14-4:alpine-3.8
+    tty: true
+    stdin_open: true
+    volumes:
+      - ../ethereum-config:/home/dev/ethereum-config
+    working_dir: /home/dev/
+    command: '/bin/sh /home/dev/ethereum-config/scripts/init.sh'
+    environment:
+      - PASSWORD_ACCOUNT=01e3851d3b4c8ee05e2a7615aee40eb6903e2c0d88057376b0aef580f23f8f67
+      - NETWORK_ID=2745
+      - BOOTNODE_FOLDER=/home/dev/ethereum-config/bootnode
+      - ETH_FOLDER=/home/dev/eth
+      - GENESIS_FILE=/home/dev/ethereum-config/genesis.json
+      - GENESIS_FILE_TEMPLATE=/home/dev/ethereum-config/genesis-template.json
+      - BACKUP_FOLDER=/home/dev/ethereum-config/backup
+      - SCRIPT_FOLDER=/home/dev/ethereum-config/scripts
+      - DAG_FOLDER=/root/eth-cache
+    ports:
+      - 8009:8009
+      - 8545:8545 
+      - 8546:8546 
+      - 8547:8547 
+      - 30303:30303 
+      - 30303:30303/udp 
+    networks:
+      - ethereum_private
+      
+
+  
+networks:
+  ethereum_private:
