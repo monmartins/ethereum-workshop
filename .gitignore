@@ -15,4 +15,11 @@
 # vendor/
 
 #Files of project
-**/enode/
+**/enode
+**/bootnode/
+**/key
+**/address
+**/keystore/
+**/genesis.json
+**/private_key.json
+
