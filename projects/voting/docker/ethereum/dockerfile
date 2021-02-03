@@ -1,0 +1,42 @@
+#docker build . -t ethereum-go-1-14-4:alpine-3.8
+from alpine:3.8
+
+RUN apk add --no-cache --virtual .build-deps bash gcc make musl-dev linux-headers git openssl go 
+RUN wget -O go.tgz https://dl.google.com/go/go1.14.4.src.tar.gz \
+    && tar -C /usr/local -xzf go.tgz \
+    && rm -rf go.tgz \
+    && cd /usr/local/go/src/ \
+    && ./make.bash \
+    && mkdir -p /opt/go 
+
+RUN apk --no-cache add ca-certificates wget \
+    && wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
+    && wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.28-r0/glibc-2.28-r0.apk \
+    && apk add glibc-2.28-r0.apk
+
+ENV PATH "/usr/local/go/bin:$PATH"
+ENV GOPATH "/opt/go/"
+ENV PATH "$PATH:${GOPATH}bin"
+
+
+RUN cd / \
+    && git clone https://github.com/ethereum/go-ethereum \
+    && cd go-ethereum \
+    && make all \
+    && cp ./build/bin/geth /usr/local/bin \
+    && cp ./build/bin/bootnode /usr/local/bin\
+    && cp ./build/bin/puppeth /usr/local/bin
+
+
+RUN apk del .build-deps 
+RUN apk add nano tmux
+
+#used by the HTTP based JSON RPC API
+EXPOSE 8545 
+#used by the WebSocket based JSON RPC API
+EXPOSE 8546
+#used by the GraphQL API
+EXPOSE 8547
+#used by the P2P protocol running the network
+EXPOSE 30303
+EXPOSE 30303/udp
