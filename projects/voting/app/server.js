@@ -1,21 +1,17 @@
-//https://gist.github.com/AbhinavMadahar/0e99739343573fa0b812
-var flash = require('connect-flash')
 var express = require('express')
 var bodyParser = require('body-parser')
-var http = require("http");
 var cors = require('cors')
-// var fs = require('fs')
 var path = require('path')
 
+var config_data = require('./config.json')
+config_data.password=process.env.ACCOUNT_PASSWORD 
+config_data.contract_exist=process.env.CONTRACT_EXIST
+config_data.contract_address=process.env.CONTRACT_ADDRESS
 
-require('./src/service/ethereum')
+var eth = require('./src/service/ethereum')
 
 var app = express();
-var http = require('http').Server(app);
 
-
-
-var config_data = require('./config.json')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
@@ -25,7 +21,6 @@ app.set('views', path.join(__dirname, './src/views/'))
 app.set('view engine', 'jade')
 app.set('view options', { layout: true}); 
 
-app.use(flash())
 
 app.use(cors({credentials: true, origin: 'http://0.0.0.0:'+config_data.port}));
 
@@ -38,9 +33,12 @@ app.use('*', (req, res, next) => {
 	next()
 })
 
+eth.init(); //initialize ethereum
+var routes = require('./src/routes/routes')(eth)
+app.use('/', routes)
 app.use(express.static('./src/public'));
 
-http.listen(config_data.port, '0.0.0.0', (req, res) => {
+app.listen(config_data.port, '0.0.0.0', (req, res) => {
 	console.log(`Listening on localhost:${config_data.port}`)
 })
 

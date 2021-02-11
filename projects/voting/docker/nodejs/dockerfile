@@ -97,4 +97,6 @@ RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
 
 RUN npm install -g npm@7.5.1
 
-RUN npm install truffle -g
+COPY entry.sh .
+RUN chmod +x ./entry.sh
+CMD /bin/sh /entry.sh

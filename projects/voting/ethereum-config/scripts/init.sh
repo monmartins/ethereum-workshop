@@ -8,8 +8,9 @@ mkdir -p $DAG_FOLDER
 mkdir -p  $ETH_FOLDER
 
 
-echo $PASSWORD_ACCOUNT > password.txt
+echo $ACCOUNT_PASSWORD > password.txt
 geth --datadir $ETH_FOLDER --password password.txt account new > account
+cp account ${SCRIPT_FOLDER}/account
 echo 'Account created'
 
 #GET KEY

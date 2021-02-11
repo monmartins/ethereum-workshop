@@ -1,0 +1,52 @@
+extends layout
+
+block content
+    script(src='http://code.jquery.com/jquery-1.6.2.min.js')
+    script.
+        function changeState( buttonid) {
+            console.log(buttonid)
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json',
+                url: '/home',	
+                data: '{"id":"'+buttonid+'"}'
+            });
+        }
+    .d-flex.flex-column.flex-md-row.align-items-center.p-3.px-md-4.mb-3.bg-white.border-bottom.shadow-sm
+        h5.my-0.mr-md-auto.font-weight-normal Ethereum Voting
+    .pricing-header.px-3.py-3.pt-md-5.pb-md-4.mx-auto.text-center
+        h1.display-4 Voting
+        p.lead
+            | Quickly build an effective vote accross your nation.
+    .container
+        .card-deck.mb-3.text-center
+            .card.mb-4.shadow-sm
+                .card-header
+                    h4.my-0.font-weight-normal= candidates[0].Name
+                .card-body
+                    h1.card-title.pricing-card-title
+                        | Votes
+                        small.text-muted
+                    ul.list-unstyled.mt-3.mb-4
+                        li= candidates[0].Votes
+                    button.btn.btn-lg.btn-block.btn-primary(id= candidates[0].Name,type='button', onClick="changeState(this.id);" ) Vote
+            .card.mb-4.shadow-sm
+                .card-header
+                    h4.my-0.font-weight-normal= candidates[1].Name
+                .card-body
+                    h1.card-title.pricing-card-title
+                        | Votes
+                        small.text-muted
+                    ul.list-unstyled.mt-3.mb-4
+                        li= candidates[1].Votes
+                    button.btn.btn-lg.btn-block.btn-primary(id= candidates[1].Name,type='button', onClick="changeState(this.id);" ) Vote
+            .card.mb-4.shadow-sm
+                .card-header
+                    h4.my-0.font-weight-normal= candidates[2].Name
+                .card-body
+                    h1.card-title.pricing-card-title
+                        | Votes
+                        small.text-muted
+                    ul.list-unstyled.mt-3.mb-4
+                        li= candidates[2].Votes
+                    button.btn.btn-lg.btn-block.btn-primary(id= candidates[2].Name,type='button', onClick="changeState(this.id);" ) Vote

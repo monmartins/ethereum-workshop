@@ -5,22 +5,6 @@ volumes:
 
 services:
   
-  nodejs:
-    container_name: nodejs
-    image: nodejs-14:alpine-310
-    tty: true
-    stdin_open: true
-    working_dir: /home/dev
-    # command: node server.js
-    volumes:
-      - ../app:/home/dev
-      - ../ethereum-config:/home/dev/ethereum-config
-      - exclude:/home/dev/node_modules
-    ports:
-      - 8000:8000
-    networks:
-      - ethereum_private
-        
 
   ethereum:
     container_name: ethereum-dev
@@ -32,7 +16,7 @@ services:
     working_dir: /home/dev/
     command: '/bin/sh /home/dev/ethereum-config/scripts/init.sh'
     environment:
-      - PASSWORD_ACCOUNT=01e3851d3b4c8ee05e2a7615aee40eb6903e2c0d88057376b0aef580f23f8f67
+      - ACCOUNT_PASSWORD=$ACCOUNT_PASSWORD
       - NETWORK_ID=2745
       - BOOTNODE_FOLDER=/home/dev/ethereum-config/bootnode
       - ETH_FOLDER=/home/dev/eth
@@ -52,6 +36,30 @@ services:
       - ethereum_private
       
 
+  nodejs:
+    container_name: nodejs
+    image: nodejs-14:alpine-310
+    tty: true
+    stdin_open: true
+    working_dir: /home/dev
+    command: node server.js 1> /var/log/app 2> /var/log/app2
+    depends_on: 
+      - ethereum
+    environment:
+      - ACCOUNT_PASSWORD=$ACCOUNT_PASSWORD
+      - SECRET=$SECRET
+      - CONTRACT_EXIST=$CONTRACT_EXIST
+      - CONTRACT_ADRESS=$CONTRACT_ADRESS
+      - WORKING_DIR=/home/dev
+    volumes:
+      - ../app:/home/dev
+      - ../ethereum-config:/home/dev/ethereum-config
+      - exclude:/home/dev/node_modules
+    ports:
+      - 8000:8000
+    networks:
+      - ethereum_private
+        
   
 networks:
   ethereum_private:
