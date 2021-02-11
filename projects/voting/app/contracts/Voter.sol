@@ -23,16 +23,16 @@ contract Voter{
     constructor(string[] memory _options ){
         options = _options;
         // votes.length=options.length;
-        for(uint i=0; i<_options.length;i++ ){
+        for(uint i=0; i<options.length;i++ ){
             Option memory option = Option(i,true);
-            posOption[_options[i]] = option;
+            posOption[options[i]] = option;
         }        
     }
 
     function vote(uint option) public {
         require(0 < option && option < options.length,"Invalid option" );
         string memory id = options[option];
-        require(!posOption[id].exists,"Option doesn't exist");
+        require(posOption[id].exists,"Option doesn't exist");
         require(!hasVoted[msg.sender],"Account has already voted");
 
         hasVoted[msg.sender] = true;
@@ -42,11 +42,11 @@ contract Voter{
     function vote(string memory option) public {
         require(!hasVoted[msg.sender],"Account has already voted");
         Option memory op = posOption[option];
-        require(!op.exists,"Option doesn't exist");
+        require(op.exists,"Option doesn't exist");
         hasVoted[msg.sender] = true;
         votes[op.pos] = votes[op.pos]+1;        
     }
-    function geOptions() public view returns (string[] memory) {
+    function getOptions() public view returns (string[] memory) {
         return options;
     }
     function getVotes() public view returns (uint[9] memory) {
