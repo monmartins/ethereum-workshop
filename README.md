@@ -26,30 +26,14 @@
 	docker-compose up --d
 ```
 
-# Connect to a running container
+## Connect to a running container
 ```
 	docker exec -it <container name> /bin/sh
 ```
 
-### https://geth.ethereum.org/docs/install-and-build/installing-geth#run-inside-docker-container
-
-### https://geth.ethereum.org/docs/interface/javascript-console
-
-### https://geth.ethereum.org/docs/getting-started/private-net
-
-### https://geth.ethereum.org/docs/rpc/server
-
-### https://eth.wiki/json-rpc/API
-
-### https://ethereum-tests.readthedocs.io/_/downloads/en/develop/pdf/
-
-### https://geth.ethereum.org/docs/interface/private-network
-
-### https://godoc.org/github.com/ethereum/go-ethereum/tests
+## Synchronization modes
 
 
-
-```
 	Sync modes
 	You can start Geth in one of three different sync modes using the --syncmode "<mode>" argument that determines what sort of node it is in the network.
 
@@ -59,7 +43,27 @@
 	Fast (Default): Downloads all blocks (including headers, transactions and receipts), verifies all headers, and downloads the state and verifies it against the headers.
 	Light: Downloads all block headers, block data, and verifies some randomly.
     
-```
+
+
+## Useful Links
+
+[Run with docker](https://geth.ethereum.org/docs/install-and-build/installing-geth#run-inside-docker-container)
+
+[Interface with javascript console](https://geth.ethereum.org/docs/interface/javascript-console)
+
+[Setup a private network](https://geth.ethereum.org/docs/getting-started/private-net)
+
+[Interface private network](https://geth.ethereum.org/docs/interface/private-network)
+
+[RPC Server](https://geth.ethereum.org/docs/rpc/server)
+
+[JSON RPC](https://eth.wiki/json-rpc/API)
+
+[Useful PDF](https://ethereum-tests.readthedocs.io/_/downloads/en/develop/pdf)
+
+[Tests](https://godoc.org/github.com/ethereum/go-ethereum/tests)
+	
+
 
 ## Doc
 
