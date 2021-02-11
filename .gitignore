@@ -20,6 +20,9 @@
 **/key
 **/address
 **/keystore/
+**/account
+**/backup
+**/package-lock.json
 **/genesis.json
 **/private_key.json
 
